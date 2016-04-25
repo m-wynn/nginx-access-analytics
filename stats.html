@@ -1,0 +1,35 @@
+<html>
+      <head>
+            <title>Access log over time</title>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js"></script>
+            <style>
+                  #chart{
+                        width:90%;
+                        height:80%;
+                        margin-left:auto;
+                        margin-right:auto;
+                  }
+            </style>
+      </head>
+      <body>
+            <h3>Requests by minute</h3>
+            <div id="chart"></div>
+            <br/><hr/><br/>
+            <h2> Top IPs</h2>
+            <div id="ips"></div>
+            <script>
+                  graph = new Dygraph(
+                        document.getElementById("chart"),
+                        "/stats.csv",
+                        {
+                              rollPeriod: 10,
+                        }
+                  );
+                  var xhttp = new XMLHttpRequest();
+                  xhttp.open("GET", "top200.html", false);
+                  xhttp.send();
+                  document.getElementById("ips").innerHTML = xhttp.responseText;
+            </script>
+
+      </body>
+</html>
